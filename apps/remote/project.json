@@ -7,22 +7,33 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/remote",
         "index": "apps/remote/src/index.html",
         "main": "apps/remote/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/remote/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/remote/public"
+            "input": "apps/remote/public",
+            "output": "."
           }
         ],
-        "styles": ["apps/remote/src/styles.scss"]
+        "styles": [
+          "apps/remote/src/styles.scss"
+        ],
+        "customWebpackConfig": {
+          "path": "apps/remote/webpack.config.js"
+        },
+        "commonChunk": false
       },
       "configurations": {
         "production": {
@@ -38,7 +49,10 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/remote/webpack.prod.config.js"
+          }
         },
         "development": {
           "buildOptimizer": false,
@@ -53,9 +67,10 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:dev-server",
       "options": {
-        "port": 4300
+        "port": 4300,
+        "publicHost": "http://localhost:4300"
       },
       "configurations": {
         "production": {
@@ -68,9 +83,10 @@
       "defaultConfiguration": "development"
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "ngx-build-plus:extract-i18n",
       "options": {
-        "buildTarget": "remote:build"
+        "buildTarget": "remote:build",
+        "extraWebpackConfig": "apps/remote/webpack.config.js"
       }
     },
     "lint": {
@@ -78,7 +94,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/remote/jest.config.ts",
         "tsConfig": "apps/remote/tsconfig.spec.json"

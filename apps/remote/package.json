@@ -8,6 +8,7 @@
     "@angular/common": "~20.3.0",
     "@angular/compiler": "~20.3.0",
     "@angular/core": "~20.3.0",
+    "@angular/elements": "^20.3.3",
     "@angular/forms": "~20.3.0",
     "@angular/platform-browser": "~20.3.0",
     "@angular/platform-browser-dynamic": "~20.3.0",
@@ -16,6 +17,7 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-architects/module-federation": "^18.0.6",
     "@angular-devkit/build-angular": "~20.3.0",
     "@angular-devkit/core": "~20.3.0",
     "@angular-devkit/schematics": "~20.3.0",
